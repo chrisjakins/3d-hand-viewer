@@ -10,7 +10,11 @@ from pyglet.window import key
 
 import pywavefront
 
-rotation = 0
+offset = 5
+
+xRotation = 0
+yRotation = 0
+zRotation = 0
 
 meshes = pywavefront.Wavefront('hand.OBJ')
 
@@ -35,7 +39,9 @@ def on_draw():
     #glEnable(GL_LIGHT0)
 
     glTranslated(0, 0, -3)
-    glRotatef(rotation, 0, 1, 0)
+    glRotatef(xRotation, 0, 1, 0)
+    glRotatef(yRotation, 1, 0, 0)
+    glRotatef(zRotation, 0, 0, 1)
     #glRotatef(-25, 1, 0, 0)
     #glRotatef(45, 0, 0, 1)
     #glEnable(GL_LIGHTING)
@@ -44,25 +50,36 @@ def on_draw():
 
 @window.event
 def on_key_press(symbol, modifiers):
+    global xRotation
+    global yRotation
+    global zRotation
+
     if symbol == key.LEFT:
-        global rotation
-        rotation += 90
-        glRotatef(rotation, 0, 1, 0)
-        print('mouse clicked')
+        xRotation += offset
 
     elif symbol == key.RIGHT:
-        print('right clicked')
+        xRotation -= offset
 
     elif symbol == key.UP:
-        print('up clicked')
+        yRotation += offset
 
     elif symbol == key.DOWN:
-        print('down clicked')
+        yRotation -= offset
+
+    elif symbol == key.M:
+        zRotation -= offset
+
+    elif symbol == key.N:
+        zRotation += offset
 
 def update(dt):
-    global rotation
-    rotation += 90*dt
-    if rotation > 720: rotation = 0
+    global xRotation
+    global zRotation
+    global yRotation
+
+    if xRotation > 720: xRotation = 0
+    if yRotation > 720: yRotation = 0
+    if zRotation > 720: zRotation = 0
     
 pyglet.clock.schedule(update)
 

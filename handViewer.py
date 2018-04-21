@@ -1,5 +1,10 @@
-#!/usr/bin/env python
-"""This script shows an example of using the PyWavefront module."""
+"""
+Must have PyWavefront and pyglet to run
+
+pip install PyWavefront
+pip install pyglet
+python3 handViewer.py
+"""
 import sys
 sys.path.append('..')
 import ctypes
